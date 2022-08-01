@@ -10,7 +10,15 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.FragmentManager
 import com.tresole.smartnotes.databinding.ActivityMainBinding
+import com.tresole.smartnotes.main.MainFragment
+import com.tresole.smartnotes.repo.Note
+import com.tresole.smartnotes.repo.Repository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
+      //  TODO("create the adapter with cardview andimplement button clicks and when finished implement the notefragment")
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,13 +39,18 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
+        binding.fab.setOnClickListener {
+            if (supportFragmentManager.findFragmentById(R.id.mainFragment)!!.isVisible) {
+                //TODO("change the icon and load the note from the database")
+                navController.navigate(R.id.action_mainFragment_to_noteFragment)
+
+            }
+            if (supportFragmentManager.findFragmentById(R.id.noteFragment)!!.isVisible){
+              //  TODO("chnage icon and save the note to database")
+                navController.navigate(R.id.action_noteFragment_to_mainFragment)
+            }
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)

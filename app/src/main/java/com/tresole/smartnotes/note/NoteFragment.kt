@@ -1,4 +1,4 @@
-package com.tresole.smartnotes
+package com.tresole.smartnotes.note
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.tresole.smartnotes.databinding.MainFragmentBinding
+import com.tresole.smartnotes.R
+import com.tresole.smartnotes.databinding.NoteFragmentBinding
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class MainFragment : Fragment() {
+class NoteFragment : Fragment() {
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: NoteFragmentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,7 +25,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = NoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -32,9 +33,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+
     }
 
     override fun onDestroyView() {
