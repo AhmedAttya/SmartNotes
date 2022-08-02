@@ -10,5 +10,5 @@ data class Note(
                 @ColumnInfo(name="notebody") val notebody:String,
                 @ColumnInfo(name="favourite") val favourite :Boolean,
                 @ColumnInfo(name="trash")val trash :Boolean,
-                @PrimaryKey(autoGenerate = false) val uid: Int?=null
+                @PrimaryKey(autoGenerate = true) val uid: Int=0
 )

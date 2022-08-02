@@ -6,6 +6,8 @@
     tools:context=".main.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="8dp"
+        android:padding="8dp"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

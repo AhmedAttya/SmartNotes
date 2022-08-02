@@ -38,7 +38,21 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setNavigationOnClickListener{
+            binding.drawerLayout.open()
+        }
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item selected
+            menuItem.isChecked = true
+            binding.drawerLayout.close()
+            when (menuItem.itemId){
+               // R.id.item1 -> navController.navigate(R)
+               // R.id.item2->navController.navigate(R)
+               // R.id.item3 -> navController.navigate(R)
+            }
 
+            true
+        }
         binding.fab.setOnClickListener {
             if (supportFragmentManager.findFragmentById(R.id.mainFragment)!!.isVisible) {
                 //TODO("change the icon and load the note from the database")

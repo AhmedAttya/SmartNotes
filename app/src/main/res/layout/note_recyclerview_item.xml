@@ -3,45 +3,32 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:id="@+id/noteitem"
     android:focusable="true"
     android:checkable="false"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="100dp"
+    android:layout_height="140dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/favouritebtn"
-                    android:layout_width="wrap_content"
-                    app:icon="@drawable/outline_favorite_24"
-                    android:layout_height="wrap_content"
-                    >
 
-                </com.google.android.material.button.MaterialButton>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/trashbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/outline_delete_24"
-                    >
-                </com.google.android.material.button.MaterialButton>
-            </LinearLayout>
             <TextView
                 android:id="@+id/title"
                 tools:text="title"
+                android:padding="8dp"
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                tools:ignore="SmallSp">
 
             </TextView>
             <TextView
                 tools:text="body"
+                android:padding="8dp"
+                android:textSize="14sp"
                 android:id="@+id/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

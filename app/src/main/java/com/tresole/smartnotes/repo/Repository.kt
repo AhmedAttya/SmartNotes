@@ -1,6 +1,7 @@
 package com.tresole.smartnotes.repo
 
 import android.content.Context
+import android.util.Log
 
 class Repository(context: Context) {
    val database=NoteDatabase.getDatabase(context)
@@ -16,4 +17,5 @@ class Repository(context: Context) {
     suspend fun load(): List<Note> {
         return database.noteDAO().getAll()
     }
+
 }

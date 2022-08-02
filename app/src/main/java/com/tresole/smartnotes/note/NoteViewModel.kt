@@ -1,4 +1,4 @@
-package com.tresole.smartnotes.main
+package com.tresole.smartnotes.note
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
@@ -9,17 +9,14 @@ import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
 import kotlinx.coroutines.launch
 
-class MainViewModel(val repo: Repository): ViewModel() {
-    val list=MutableLiveData<List<Note>>()
-    fun load() {
+class NoteViewModel(val repo: Repository): ViewModel() {
+    val note=CurrentNote.getCurrent()
+    fun save(note: Note) {
         viewModelScope.launch {
-         list.value= repo.load()
+         repo.update(note)
         }
     }
 
-    fun setcurrent(note: Note) {
-        CurrentNote.setCurrent(note)
-    }
 
 
 }
