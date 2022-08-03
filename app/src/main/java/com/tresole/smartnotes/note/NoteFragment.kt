@@ -1,10 +1,11 @@
 package com.tresole.smartnotes.note
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -28,7 +29,8 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        setHasOptionsMenu(true)
+         activity?.invalidateOptionsMenu()
         _binding = NoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -51,4 +53,50 @@ class NoteFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Log.e("oncreate","oncreate")
+        val drawable=AppCompatResources.getDrawable(this.requireContext(),R.drawable.outline_favorite_black_24)
+        val favourite =menu.findItem(R.id.favourite)
+        val delete=menu.findItem(R.id.movetotrash)
+        val restore=menu.findItem(R.id.restore)
+        favourite.isVisible=true
+        delete.isVisible=true
+        if(viewModel.note.favourite==true)
+            favourite.icon=drawable
+        if(viewModel.note.trash==true)
+            restore.isVisible=true
+
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+       return when(item.itemId){
+           R.id.favourite->{
+               if(viewModel.note.favourite==true)
+                   viewModel.removefavourite()
+               else
+                   viewModel.addfavourite()
+               true
+           }
+           R.id.movetotrash->{
+               if(viewModel.note.trash==true) {
+                   viewModel.delete()
+                   findNavController().navigate(R.id.action_noteFragment_to_mainFragment)
+               }
+               else
+                   viewModel.movetotrash()
+               true
+           }
+           R.id.restore->{
+               viewModel.restore()
+               item.isVisible=false
+               activity?.invalidateOptionsMenu()
+
+                 true
+           }
+           else -> {  super.onOptionsItemSelected(item) }
+       }
+     }
 }

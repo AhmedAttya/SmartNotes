@@ -48,4 +48,6 @@
     <string name="all">all</string>
     <string name="favourites">favourites</string>
     <string name="trash">trash</string>
+    <string name="move_to_trash">move to trash</string>
+    <string name="restore">restore</string>
 </resources>

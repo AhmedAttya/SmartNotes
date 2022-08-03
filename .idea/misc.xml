@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/drawable/outline_delete_24.xml" value="0.124" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/drawable/sl_outline_favorite_24.xml" value="0.123" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/header_navigation_drawer.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/layout.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/main_fragment.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/note_fragment.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/layout/note_recyclerview_item.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/SmartNotes/app/src/main/res/menu/menu_main.xml" value="0.2" />
       </map>
     </option>
   </component>

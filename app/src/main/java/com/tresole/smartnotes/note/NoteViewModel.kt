@@ -17,6 +17,40 @@ class NoteViewModel(val repo: Repository): ViewModel() {
         }
     }
 
+    fun removefavourite() {
+
+        viewModelScope.launch {
+            note.favourite=false
+            repo.update(note)
+        }
+    }
+
+    fun addfavourite() {
+        viewModelScope.launch {
+            note.favourite=true
+            repo.update(note)
+        }
+    }
+
+    fun delete() {
+        viewModelScope.launch {
+            repo.delete(note)
+        }
+    }
+
+    fun movetotrash() {
+        viewModelScope.launch {
+            note.trash=true
+            repo.update(note)
+        }
+    }
+
+    fun restore() {
+        viewModelScope.launch {
+            note.trash=false
+            repo.update(note)
+        }
+    }
 
 
 }
