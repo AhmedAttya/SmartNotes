@@ -4,16 +4,16 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/item1"
-            android:icon="@drawable/ic_launcher_background"
+            android:id="@+id/allnotes"
+            android:icon="@drawable/outline_density_small_24"
             android:title="@string/all"
             android:checked="true" />
         <item
-            android:id="@+id/item2"
-            android:icon="@drawable/ic_launcher_background"
+            android:id="@+id/favourite"
+            android:icon="@drawable/outline_favorite_24"
             android:title="@string/favourites" />
         <item
-            android:id="@+id/item3"
+            android:id="@+id/trash"
             android:icon="@drawable/outline_restore_from_trash_24"
             android:title="@string/trash" />
     </group>

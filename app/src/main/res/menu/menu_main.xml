@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/favourite"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:checkable="true"
         android:iconTint="@color/iconcolors"
         android:visible="false"
@@ -32,4 +32,5 @@
         android:icon="@drawable/outline_restore_from_trash_24">
 
     </item>
+
 </menu>

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:openDrawer="start">
+    xmlns:tools="http://schemas.android.com/tools">
 <androidx.coordinatorlayout.widget.CoordinatorLayout
 
     android:layout_width="match_parent"
@@ -16,13 +15,17 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="visible"
+            app:navigationIcon="@drawable/outline_menu_black_48" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,15 +38,14 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:srcCompat="@drawable/outline_add_circle_24"
         tools:ignore="ContentDescription" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 <com.google.android.material.navigation.NavigationView
 android:id="@+id/navigationView"
 android:layout_width="wrap_content"
-    app:headerLayout="@layout/header_navigation_drawer"
-    android:layout_gravity="start"
+android:layout_gravity="start"
 android:layout_height="match_parent"
 app:menu="@menu/navigation_drawer"
     />

@@ -10,6 +10,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
 import com.tresole.smartnotes.databinding.ActivityMainBinding
 import com.tresole.smartnotes.main.MainFragment
@@ -32,13 +34,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
+        setSupportActionBar(binding.toolbar as Toolbar?)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbar.setNavigationOnClickListener{
+            Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show()
             binding.drawerLayout.open()
         }
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+
         return true
     }
 
