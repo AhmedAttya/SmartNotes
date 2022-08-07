@@ -112,7 +112,6 @@ class NoteFragment : Fragment() {
         viewModel.note.title=binding.title.editText?.text.toString()
         viewModel.note.notebody=binding.body.editText?.text.toString()
         viewModel.checkifnew()
-
-
     }
+
 }

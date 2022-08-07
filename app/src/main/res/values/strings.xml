@@ -50,4 +50,9 @@
     <string name="trash">trash</string>
     <string name="move_to_trash">move to trash</string>
     <string name="restore">restore</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="nav_header_subtitle">ggez</string>
+    <string name="nav_header_title">gg title</string>
+    <string name="nav_header_desc">gg title des</string>
 </resources>

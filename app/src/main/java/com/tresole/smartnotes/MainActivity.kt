@@ -2,6 +2,9 @@ package com.tresole.smartnotes
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -9,22 +12,17 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
-import androidx.viewpager.widget.ViewPager
+import androidx.navigation.ui.setupWithNavController
 import com.tresole.smartnotes.databinding.ActivityMainBinding
 import com.tresole.smartnotes.main.MainFragment
 import com.tresole.smartnotes.note.NoteFragment
-import com.tresole.smartnotes.repo.Note
-import com.tresole.smartnotes.repo.Repository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+
+import androidx.appcompat.app.ActionBarDrawerToggle
+
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,22 +36,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar as Toolbar?)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         controller = navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.allnotes, R.id.favourite, R.id.trash), binding.drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.toolbar.setNavigationOnClickListener{
-            Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show()
-            binding.drawerLayout.open()
-        }
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close)
+        binding.drawerLayout.setDrawerListener(toggle)
+        toggle.syncState()
         listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.mainFragment)
+            if (destination.id == R.id.mainFragment) {
                 binding.fab.setImageResource(R.drawable.outline_add_circle_24)
+                binding.toolbar.setNavigationIcon(R.drawable.ic_menu_24dp)
+            }
             else if (destination.id== R.id.noteFragment)
+            {
                  binding.fab.setImageResource(R.drawable.outline_done_black_24)
-
+                toggle.isDrawerIndicatorEnabled = false
+            }
+        }
+        toggle.setToolbarNavigationClickListener {
+            toggle.isDrawerIndicatorEnabled = true
+            navController.navigate(R.id.action_noteFragment_to_mainFragment)
         }
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
@@ -86,7 +97,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-
         return true
     }
 
@@ -96,6 +106,10 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
