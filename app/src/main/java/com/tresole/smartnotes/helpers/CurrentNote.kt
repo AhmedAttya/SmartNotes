@@ -4,7 +4,7 @@ import com.tresole.smartnotes.repo.Note
 
 class CurrentNote {
     companion object{
-    lateinit var note:Note
+     var note : Note =Note("","",false,false)
     fun setCurrent(note: Note)
     {
         this.note=note

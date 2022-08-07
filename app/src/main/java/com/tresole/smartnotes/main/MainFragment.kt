@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tresole.smartnotes.MainActivity
 import com.tresole.smartnotes.R
 import com.tresole.smartnotes.databinding.MainFragmentBinding
 import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,7 +27,6 @@ class MainFragment : Fragment(),Noteclicklistener {
     private lateinit var viewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +56,6 @@ class MainFragment : Fragment(),Noteclicklistener {
          RecyclerView.adapter=adapter
          adapter.notifyDataSetChanged()
         }
-
-
-
 
     }
 

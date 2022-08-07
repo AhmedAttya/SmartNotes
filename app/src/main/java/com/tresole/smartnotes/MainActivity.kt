@@ -1,6 +1,7 @@
 package com.tresole.smartnotes
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -13,8 +14,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.viewpager.widget.ViewPager
 import com.tresole.smartnotes.databinding.ActivityMainBinding
 import com.tresole.smartnotes.main.MainFragment
+import com.tresole.smartnotes.note.NoteFragment
 import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
 import kotlinx.coroutines.CoroutineScope
@@ -25,26 +29,33 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var controller :NavController
     private lateinit var binding: ActivityMainBinding
+    lateinit var  listener :NavController.OnDestinationChangedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
-      //  TODO("create the adapter with cardview andimplement button clicks and when finished implement the notefragment")
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar as Toolbar?)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        controller = navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbar.setNavigationOnClickListener{
             Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show()
             binding.drawerLayout.open()
         }
+        listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.mainFragment)
+                binding.fab.setImageResource(R.drawable.outline_add_circle_24)
+            else if (destination.id== R.id.noteFragment)
+                 binding.fab.setImageResource(R.drawable.outline_done_black_24)
+
+        }
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
             menuItem.isChecked = true
             binding.drawerLayout.close()
             when (menuItem.itemId){
@@ -55,17 +66,22 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+        val navHostFragment=supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
         binding.fab.setOnClickListener {
-            if (supportFragmentManager.findFragmentById(R.id.mainFragment)!!.isVisible) {
-                //TODO("change the icon and load the note from the database")
+            val currentfragment=navHostFragment?.childFragmentManager?.fragments?.get(0)
+            if (currentfragment is MainFragment ) {
                 navController.navigate(R.id.action_mainFragment_to_noteFragment)
+                binding.fab.setImageResource(R.drawable.outline_done_24)
 
             }
-            if (supportFragmentManager.findFragmentById(R.id.noteFragment)!!.isVisible){
-              //  TODO("chnage icon and save the note to database")
+            if (currentfragment is NoteFragment){
+                currentfragment.savenote()
                 navController.navigate(R.id.action_noteFragment_to_mainFragment)
+                binding.fab.setImageResource(R.drawable.outline_add_circle_black_24)
             }
         }
+
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -88,5 +104,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        controller.addOnDestinationChangedListener(listener)
+    }
+
+    override fun onPause() {
+        controller.removeOnDestinationChangedListener(listener)
+        super.onPause()
     }
 }

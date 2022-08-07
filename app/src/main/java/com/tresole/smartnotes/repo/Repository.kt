@@ -18,4 +18,8 @@ class Repository(context: Context) {
         return database.noteDAO().getAll()
     }
 
+    suspend fun exist(uid: Int) :Boolean{
+        return database.noteDAO().exist(uid)
+    }
+
 }

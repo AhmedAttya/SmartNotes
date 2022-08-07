@@ -12,4 +12,6 @@ interface NoteDAO {
   suspend  fun delete(note: Note)
     @Update
    suspend fun update(note: Note)
+    @Query("SELECT EXISTS(SELECT * FROM notes WHERE uid = :id)")
+    suspend fun exist(id :Int) :Boolean
 }
