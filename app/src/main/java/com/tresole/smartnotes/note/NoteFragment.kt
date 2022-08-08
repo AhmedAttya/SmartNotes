@@ -1,20 +1,15 @@
 package com.tresole.smartnotes.note
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tresole.smartnotes.R
 import com.tresole.smartnotes.databinding.NoteFragmentBinding
-import com.tresole.smartnotes.main.MainViewModel
-import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
 
 /**
@@ -80,6 +75,7 @@ class NoteFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favourite -> {
+
                 if (viewModel.note.favourite) {
                     viewModel.removefavourite()
                     activity?.invalidateOptionsMenu()
