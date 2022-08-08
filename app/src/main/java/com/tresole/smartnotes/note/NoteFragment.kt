@@ -64,7 +64,7 @@ class NoteFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         Log.e("oncreate", "oncreate")
         val drawable = AppCompatResources.getDrawable(this.requireContext(),
-            R.drawable.outline_favorite_black_24)
+            R.drawable.outline_favorite_24)
         val favourite = menu.findItem(R.id.favourite)
         val delete = menu.findItem(R.id.movetotrash)
         val restore = menu.findItem(R.id.restore)
@@ -77,22 +77,38 @@ class NoteFragment : Fragment() {
 
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favourite -> {
-                if (viewModel.note.favourite == true)
+                if (viewModel.note.favourite) {
                     viewModel.removefavourite()
-                else
+                    activity?.invalidateOptionsMenu()
+                }
+                else if(viewModel.note.trash){
+                    viewModel.restore()
                     viewModel.addfavourite()
+                    activity?.invalidateOptionsMenu()
+                }
+                else {
+                    viewModel.addfavourite()
+                    activity?.invalidateOptionsMenu()
+                }
                 true
             }
             R.id.movetotrash -> {
-                if (viewModel.note.trash == true) {
+                if (viewModel.note.trash) {
                     viewModel.delete()
                     findNavController().navigate(R.id.action_noteFragment_to_mainFragment)
-                } else
+                }
+                else if(viewModel.note.favourite){
+                    viewModel.removefavourite()
                     viewModel.movetotrash()
+                    activity?.invalidateOptionsMenu()
+                }
+                else {
+                    viewModel.movetotrash()
+                    activity?.invalidateOptionsMenu()
+                }
                 true
             }
             R.id.restore -> {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -19,9 +20,7 @@ import com.tresole.smartnotes.main.MainFragment
 import com.tresole.smartnotes.note.NoteFragment
 
 import androidx.appcompat.app.ActionBarDrawerToggle
-
-
-
+import com.tresole.smartnotes.main.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -69,10 +68,26 @@ class MainActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             binding.drawerLayout.close()
+            val navHostFragment=supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
+            val fragment=navHostFragment?.childFragmentManager?.fragments?.get(0)
+
             when (menuItem.itemId){
-               // R.id.item1 -> navController.navigate(R)
-               // R.id.item2->navController.navigate(R)
-               // R.id.item3 -> navController.navigate(R)
+                R.id.allnotes ->{
+                    if(fragment is MainFragment){
+                 fragment.loadall()
+                }
+                }
+                R.id.trash-> {
+                    if(fragment is MainFragment) {
+                        fragment.loadtrash()
+                    }
+                }
+                R.id.favourite -> {
+                    if(fragment is MainFragment) {
+                        fragment.loadfavourite()
+                    }
+
+                }
             }
 
             true

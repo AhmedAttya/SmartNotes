@@ -10,15 +10,30 @@ import com.tresole.smartnotes.repo.Repository
 import kotlinx.coroutines.launch
 
 class MainViewModel(val repo: Repository): ViewModel() {
-    val list=MutableLiveData<List<Note>>()
-    fun load() {
+    val list=MutableLiveData<MutableList<Note>>()
+    fun loadall() {
         viewModelScope.launch {
-         list.value= repo.load()
+         list.value= repo.load().toMutableList()
+            list.value?.sortByDescending { it.uid }
         }
     }
 
     fun setcurrent(note: Note) {
         CurrentNote.setCurrent(note)
+    }
+
+    fun loadfavourite() {
+       viewModelScope.launch {
+           list.value=repo.loadfavourite()?.toMutableList()
+           list.value?.sortByDescending { it.uid }
+       }
+    }
+
+    fun loadtrash() {
+        viewModelScope.launch {
+            list.value=repo.loadtrash()?.toMutableList()
+            list.value?.sortByDescending { it.uid }
+        }
     }
 
 

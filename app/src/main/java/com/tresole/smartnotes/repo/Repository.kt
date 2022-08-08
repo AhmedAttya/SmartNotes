@@ -22,4 +22,12 @@ class Repository(context: Context) {
         return database.noteDAO().exist(uid)
     }
 
+   suspend fun loadfavourite(): List<Note>? {
+      return database.noteDAO().getfavourite()
+    }
+
+   suspend fun loadtrash(): List<Note>? {
+        return database.noteDAO().gettrash()
+    }
+
 }

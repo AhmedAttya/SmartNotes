@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/favourite"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:checkable="true"
         android:iconTint="@color/iconcolors"
         android:visible="false"

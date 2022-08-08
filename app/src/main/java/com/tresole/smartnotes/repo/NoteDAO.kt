@@ -14,4 +14,10 @@ interface NoteDAO {
    suspend fun update(note: Note)
     @Query("SELECT EXISTS(SELECT * FROM notes WHERE uid = :id)")
     suspend fun exist(id :Int) :Boolean
+    @Query("SELECT * FROM notes WHERE favourite = 1")
+    suspend fun getfavourite(): List<Note>?
+    @Query("SELECT * FROM notes WHERE trash = 1")
+    suspend fun gettrash(): List<Note>?
+
+
 }
