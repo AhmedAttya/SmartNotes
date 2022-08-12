@@ -2,19 +2,17 @@ package com.tresole.smartnotes.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.tresole.smartnotes.R
 import com.tresole.smartnotes.databinding.MainFragmentBinding
+import com.tresole.smartnotes.helpers.CurrentNote
 import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
 
@@ -38,6 +36,8 @@ class MainFragment : Fragment(),Noteclicklistener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val Note = Note("", "", false, false)
+        CurrentNote.setCurrent(Note)
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")

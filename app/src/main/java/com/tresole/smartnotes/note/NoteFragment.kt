@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tresole.smartnotes.R
 import com.tresole.smartnotes.databinding.NoteFragmentBinding
+import com.tresole.smartnotes.helpers.CurrentNote
+import com.tresole.smartnotes.repo.Note
 import com.tresole.smartnotes.repo.Repository
 
 /**
@@ -63,12 +65,14 @@ class NoteFragment : Fragment() {
         val favourite = menu.findItem(R.id.favourite)
         val delete = menu.findItem(R.id.movetotrash)
         val restore = menu.findItem(R.id.restore)
-        favourite.isVisible = true
-        delete.isVisible = true
-        if (viewModel.note.favourite == true)
-            favourite.icon = drawable
-        if (viewModel.note.trash == true)
-            restore.isVisible = true
+        if (viewModel.note.title != "") {
+            favourite.isVisible = true
+            delete.isVisible = true
+            if (viewModel.note.favourite == true)
+                favourite.icon = drawable
+            if (viewModel.note.trash == true)
+                restore.isVisible = true
+        }
 
     }
 
@@ -121,8 +125,10 @@ class NoteFragment : Fragment() {
     }
 
     fun savenote() {
-        viewModel.note.title=binding.title.editText?.text.toString()
-        viewModel.note.notebody=binding.body.editText?.text.toString()
+        val Note = Note("", "", false, false)
+        CurrentNote.setCurrent(Note)
+        viewModel.note.title = binding.title.editText?.text.toString()
+        viewModel.note.notebody = binding.body.editText?.text.toString()
         viewModel.checkifnew()
     }
 
