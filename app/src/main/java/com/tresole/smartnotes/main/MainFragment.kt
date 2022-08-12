@@ -1,18 +1,14 @@
 package com.tresole.smartnotes.main
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.tresole.smartnotes.R
 import com.tresole.smartnotes.databinding.MainFragmentBinding
 import com.tresole.smartnotes.repo.Note
@@ -67,21 +63,16 @@ class MainFragment : Fragment(),Noteclicklistener {
     }
     fun loadall()
     {
-        Log.e("this","allnotes")
       viewModel.loadall()
-        Log.e("this",viewModel.list.value?.size.toString())
     }
     fun loadtrash()
     {
-        Log.e("this","trash")
         viewModel.loadtrash()
-        Log.e("this",viewModel.list.value?.size.toString())
+
     }
     fun loadfavourite()
     {
-        Log.e("this","favourite")
         viewModel.loadfavourite()
-        Log.e("this",viewModel.list.value?.size.toString())
     }
 
 }

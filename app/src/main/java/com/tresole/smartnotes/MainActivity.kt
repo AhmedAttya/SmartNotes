@@ -1,26 +1,21 @@
 package com.tresole.smartnotes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.NavController
-import androidx.navigation.ui.setupWithNavController
 import com.tresole.smartnotes.databinding.ActivityMainBinding
 import com.tresole.smartnotes.main.MainFragment
 import com.tresole.smartnotes.note.NoteFragment
-
-import androidx.appcompat.app.ActionBarDrawerToggle
-import com.tresole.smartnotes.main.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +31,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_main, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_settings -> true
+                    android.R.id.home -> {
+                        onBackPressed()
+                        true
+                    }
+                    else -> true
+                }
+
+            }
+        })
         supportActionBar?.setDisplayShowTitleEnabled(false)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         controller = navController
@@ -115,19 +128,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
